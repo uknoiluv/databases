@@ -17,6 +17,15 @@ var dbConnection = mysql.createConnection({
 });
 
 dbConnection.connect();
+dbConnection.query('insert into Friends set users = "adrian"', function(){
+
+});
+dbConnection.query('select * from Friends', function(err, rows, fields){
+  if (err) throw err;
+  console.log(rows);
+  // console.log('hello');
+});
+
 
 
 
