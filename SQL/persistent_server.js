@@ -41,7 +41,7 @@ var routes = {
 };
 
 var router = function(request, response) {
-  console.log('Serving request type ' + request.method + ' for url ' + request.url);
+  // console.log('Serving request type ' + request.method + ' for url ' + request.url);
 
   var parsedUri = url.parse(request.url);
 

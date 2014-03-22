@@ -5,6 +5,7 @@ var objectId = 1;
 
 
 
+
 var dbConnection = mysql.createConnection({
   user: 'root',
   password: '',
@@ -33,8 +34,6 @@ var getMessages = function(request, response){
 
 };
 
-
-
 var postMessage = function(request, response){
   // listen for chunks, assemble them
   httpHelpers.collectData(request, function(data){
@@ -44,15 +43,28 @@ var postMessage = function(request, response){
     message.objectId = objectId;
     // push into messages
     // messages.unshift(message);
-    dbConnection.query('insert into Messages (users) values("emily")', function() {});
-    dbConnection.query('select * from Messages',function(err, rows, fields){
-      console.log(rows);
-      // return rows;
+    var sqlMessage = [];
+    for (var key in message) {
+      sqlMessage.push(JSON.stringify(message[key]));
+    }
+    sqlMessage = sqlMessage.join(',');
+    console.log(sqlMessage);
+    dbConnection.query( 'INSERT INTO Messages (user, text, room, id_users) VALUES (' + sqlMessage + ');', function(err, result) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log('check database');
+      }
     });
+    dbConnection.query('select * from Messages',function(err, rows, fields){
+      //console.log(rows);
+      return rows;
+    });
+  });
 
-    httpHelpers.sendResponse(response, null, 201);
-  })
+  httpHelpers.sendResponse(response, null, 201);
 };
+
 
 var options = function(request, response){
   httpHelpers.sendResponse(response);
