@@ -2,7 +2,7 @@
  * for these tests to pass. */
 
 var mysql = require('mysql');
-var request = require("request"); // You might need to npm install the request module!
+var request = require("http-request"); // You might need to npm install the request module!
 
 describe("Persistent Node Chat Server", function() {
   var dbConnection;
@@ -10,14 +10,14 @@ describe("Persistent Node Chat Server", function() {
   beforeEach(function(done) {
     dbConnection = mysql.createConnection({
     /* TODO: Fill this out with your mysql username */
-      user: "",
+      user: "root",
     /* and password. */
       password: "",
       database: "chat"
     });
     dbConnection.connect();
 
-    var tablename = ""; // TODO: fill this out
+    var tablename = "Messages"; // TODO: fill this out
 
     /* Empty the db table before each test so that multiple tests
      * (or repeated runs of the tests) won't screw each other up: */
