@@ -14,19 +14,22 @@ var dbConnection = mysql.createConnection({
 
 dbConnection.connect();
 
-// var messages = [
-//   {
-//     objectId: objectId,
-//     username: 'fred',
-//     text: 'hello world'
-//   }
-// ];
+
+var data = {};
+data.results = [];
+
 
 var getMessages = function(request, response){
-  var data = dbConnection.query('select * from Friends',function(err, rows, fields){
-    return rows;
+  var sqlData = dbConnection.query('select * from Messages',function(err, rows, fields){
+    if (err) {
+        console.log(err);
+    } else {
+      console.log(rows);
+      httpHelpers.sendResponse(response, {results: rows} );
+    }
   });
-  httpHelpers.sendResponse(response, {results: 'hello haha'} );
+  // data.results.push(sqlData);
+
 // dbConnection.query('select * from Friends', function(err, rows, fields){
 //   if (err) throw err;
 //   console.log(rows);
@@ -48,17 +51,13 @@ var postMessage = function(request, response){
       sqlMessage.push(JSON.stringify(message[key]));
     }
     sqlMessage = sqlMessage.join(',');
-    console.log(sqlMessage);
-    dbConnection.query( 'INSERT INTO Messages (user, text, room, id_users) VALUES (' + sqlMessage + ');', function(err, result) {
+    // console.log(sqlMessage);
+    dbConnection.query( 'INSERT INTO Messages (username, text, roomname, id_users) VALUES (' + sqlMessage + ');', function(err, result) {
       if (err) {
         console.log(err);
       } else {
-        console.log('check database');
+        // console.log('check database');
       }
-    });
-    dbConnection.query('select * from Messages',function(err, rows, fields){
-      //console.log(rows);
-      return rows;
     });
   });
 
