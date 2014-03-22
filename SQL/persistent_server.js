@@ -10,34 +10,29 @@ var url = require('url');
 /* You'll need to fill the following out with your mysql username and password.
  * database: 'chat' specifies that we're using the database called
  * 'chat', which we created by running schema.sql.*/
-var dbConnection = mysql.createConnection({
-  user: 'root',
-  password: '',
-  database: 'chat'
-});
-
-dbConnection.connect();
-dbConnection.query('insert into Friends set users = "adrian"', function(){
-
-});
-dbConnection.query('select * from Friends', function(err, rows, fields){
-  if (err) throw err;
-  console.log(rows);
-  // console.log('hello');
-});
 
 
 
+// exports.dbConnection = dbConnection = mysql.createConnection({
+//   user: 'root',
+//   password: '',
+//   database: 'chat'
+// });
 
-/* Every server needs to listen on a port with a unique number. The
- * standard port for HTTP servers is port 80, but that port is
- * normally already claimed by another server and/or not accessible
- * so we'll use a higher port number that is not likely to be taken: */
+// dbConnection.connect();
+// dbConnection.query('update Friends set users = "adrian"', function(){
+// });
+// dbConnection.query('select * from Friends', function(err, rows, fields){
+//   if (err) throw err;
+//   console.log(rows);
+// });
+
+
+
+
+
 var port = 3000;
 
-/* For now, since you're running this server on your local machine,
- * we'll have it listen on the IP address 127.0.0.1, which is a
- * special address that always refers to localhost. */
 var ip = '127.0.0.1';
 
 var routes = {
